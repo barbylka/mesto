@@ -29,10 +29,7 @@ editBtn.addEventListener('click', openPopup);
 exitBtn.addEventListener('click', closePopup);
 
 let formElement = document.querySelector('.popup__container');
-console.log(formElement);
-
 let header = document.querySelector('.profile__cont-info-name');
-console.log(header.textContent);
 let job = document.querySelector('.profile__cont-info-description');
 let nameInput = document.querySelector('.popup__text_type_name');
 let jobInput = document.querySelector('.popup__text_type_description');
