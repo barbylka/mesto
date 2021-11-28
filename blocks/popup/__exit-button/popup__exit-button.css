@@ -1,6 +1,6 @@
 .popup__exit-button {
   background-color: transparent;
-  background-image: url(../../../images/Close\ Icon.png);
+  background-image: url(../../../images/Close-Icon.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -24,7 +24,7 @@
   .popup__exit-button {
     width: 20px;
     height: 20px;
-    top: -32px;
+    top: -36px;
     right: 0;
   }
 }
