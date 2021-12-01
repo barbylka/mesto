@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 619px) {
   .profile__cont-info-name {
-  font-size: 27px;
-  line-height: 1.22;
+    font-size: 27px;
+    line-height: 1.22;
   }
 }
