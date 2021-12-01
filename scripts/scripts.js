@@ -9,7 +9,7 @@ for (let i = 0; i < allLikes.length; i++) {
   })
 }
 
-let editBtn = document.querySelector('.profile__cont-edit-button');
+let editBtn = document.querySelector('.profile__button_type_edit');
 let popup = document.querySelector('.popup');
 let body = document.querySelector('.root');
 let exitBtn = document.querySelector('.popup__exit-button');
