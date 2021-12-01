@@ -1,13 +1,18 @@
-let allLikes = document.querySelectorAll('.places__like');
-
-for (let i = 0; i < allLikes.length; i++) {
-  const likeIcon = allLikes[i];
-  
-  likeIcon.addEventListener('click', function() {
-    if (likeIcon.getAttribute('src') == './images/like.svg') likeIcon.setAttribute('src', './images/black-like.svg');
-    else likeIcon.setAttribute('src', './images/like.svg');
-  })
+function touchLike() {
+  let allLikes = document.querySelectorAll('.places__like');
+  for (let i = 0; i < allLikes.length; i++) {
+    const likeIcon = allLikes[i];
+    likeIcon.addEventListener('click', function() {
+      if (likeIcon.classList.contains('places__like_active')) {
+        likeIcon.classList.remove('places__like_active');
+      } else {
+        likeIcon.classList.add('places__like_active');
+      }
+    })
+  }
 }
+
+touchLike();
 
 let editBtn = document.querySelector('.profile__button_type_edit');
 let popup = document.querySelector('.popup');
