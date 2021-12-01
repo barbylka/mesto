@@ -1,9 +1,9 @@
-.profile__cont-edit-button {
+.profile__button_type_edit {
   margin: 16px 0 0 18px;
   padding: 0;
   width: 24px;
   height: 24px;
-  background-image: url(../../../images/edit-button.svg);
+  background-image: url(../../../../images/edit-button.svg);
   background-position: center;
   background-color: transparent;
   border: 1px solid #FFFFFF;
@@ -13,13 +13,13 @@
 }
 
 @media screen and (max-width: 740px) {
-  .profile__cont-edit-button {
+  .profile__button_type_edit {
     margin-left: 10px;
   }
 }
 
 @media screen and (max-width: 619px) {
-  .profile__cont-edit-button {
+  .profile__button_type_edit {
     width: 18px;
     height: 18px;
     margin-top: 9px;
