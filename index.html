@@ -28,18 +28,6 @@
       <button class="profile__button profile__button_type_add" type="button"></button>
     </section>
 
-    <section class="popup">
-      <form class="popup__container">
-        <button class="popup__exit-button" type="button"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__inputs">
-          <input type="text" required placeholder="Имя" value="" class="popup__text popup__text_type_name">
-          <input type="text" required placeholder="О себе" value="" class="popup__text popup__text_type_description">
-          <button class="popup__save-button" type="submit">Сохранить</button>
-        </fieldset>
-      </form>
-    </section>
-
     <section class="places">
       <ul class="places__items">
         <li class="places__item">
@@ -64,7 +52,8 @@
           </div>
         </li>
         <li class="places__item">
-          <img class="places__img" alt="Панорама гор Адирондак с высоты птичьего полета." src="./images/adirondack-mountains.jpg">
+          <img class="places__img" alt="Панорама гор Адирондак с высоты птичьего полета."
+            src="./images/adirondack-mountains.jpg">
           <div class="places__description">
             <h2 class="places__title">Горы Адирондак</h2>
             <button class="places__like" type="button"></button>
@@ -85,6 +74,18 @@
           </div>
         </li>
       </ul>
+    </section>
+
+    <section class="popup">
+      <form class="popup__container" name="editProfile">
+        <button class="popup__exit-button" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__inputs">
+          <input type="text" required placeholder="Имя" value="" class="popup__text popup__text_type_name" name="userName">
+          <input type="text" required placeholder="О себе" value="" class="popup__text popup__text_type_description" name="userJob">
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
     </section>
   </main>
 
