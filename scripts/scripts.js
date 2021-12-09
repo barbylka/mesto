@@ -35,55 +35,40 @@ const initialPlaces = [
   }
 ];
 
-initialPlaces.forEach(function (element) {
+function addCard(name, alt, link) {
   const placesElement = placesTemplate.cloneNode(true);
 
-  placesElement.querySelector('.places__title').textContent = element.name;
-  placesElement.querySelector('.places__img').alt = element.alt;
-  placesElement.querySelector('.places__img').src = element.link;
+  placesElement.querySelector('.places__title').textContent = name;
+  placesElement.querySelector('.places__img').alt = alt;
+  placesElement.querySelector('.places__img').src = link;
 
-  placesList.append(placesElement)
-})
+  placesElement.querySelector('.places__like').addEventListener('click', evt => {
+    evt.target.classList.toggle('places__like_active');
+  });
 
-function touchLike() {
-  let allLikes = document.querySelectorAll('.places__like');
-  for (let i = 0; i < allLikes.length; i++) {
-    const likeIcon = allLikes[i];
-    likeIcon.addEventListener('click', function () {
-      if (likeIcon.classList.contains('places__like_active')) {
-        likeIcon.classList.remove('places__like_active');
-      } else {
-        likeIcon.classList.add('places__like_active');
-      }
-    })
-  }
+  placesElement.querySelector('.places__delete').addEventListener('click', evt => {
+    evt.target.closest('.places__item').remove();
+  })
+
+  placesList.prepend(placesElement);
 }
 
-touchLike();
+initialPlaces.forEach(element => addCard(element.name, element.alt, element.link))
 
-const deleteBtns = document.querySelectorAll('.places__delete');
-
-deleteBtns.forEach(function (item) {
-  item.addEventListener('click', function (evt) {
-    const eventTarget = evt.target;
-    const placeItm = eventTarget.closest('.places__item');
-    placeItm.remove();
-  })
-})
-
-
+/* profile edit popup */
 
 let editBtn = document.querySelector('.profile__button_type_edit');
-let popup = document.querySelector('.popup');
+let addBtn = document.querySelector('.profile__button_type_add');
 let body = document.querySelector('.root');
 let header = document.querySelector('.profile__cont-info-name');
 let job = document.querySelector('.profile__cont-info-description');
 let nameInput = document.querySelector('.popup__text_type_name');
 let jobInput = document.querySelector('.popup__text_type_description');
-let exitBtn = document.querySelector('.popup__exit-button');
+let exitBtns = document.querySelectorAll('.popup__exit-button');
 
-function togglePopup() {
-  if (!popup.classList.contains('popup_opened')) {
+function togglePopup(popupClass) {
+  const popup = document.querySelector(popupClass);
+  if (popupClass === '.popup_type_edit' && !popup.classList.contains('popup_opened')) {
     nameInput.value = header.textContent;
     jobInput.value = job.textContent;
   }
@@ -92,20 +77,38 @@ function togglePopup() {
   body.classList.toggle('root_hidden');
 }
 
-editBtn.addEventListener('click', togglePopup);
-exitBtn.addEventListener('click', togglePopup);
+editBtn.addEventListener('click', () => togglePopup('.popup_type_edit'));
+addBtn.addEventListener('click', () => togglePopup('.popup_type_add'));
 
-let formElement = document.querySelector('.popup__container');
+exitBtns.forEach(btn => {
+  btn.addEventListener('click', () => togglePopup('.' + btn.parentElement.parentElement.classList[1]));
+});
 
-function formSubmitHandler(evt) {
+let formElements = document.querySelectorAll('.popup__container');
+const placeInput = document.querySelector('.popup__text_type_place');
+const linkInput = document.querySelector('.popup__text_type_link');
+
+function formSubmitHandler(evt, form) {
   evt.preventDefault();
+  const popup = form.parentElement;
+  if (popup.classList.contains('popup_type_edit')) {
+    nameInput.getAttribute('value');
+    jobInput.getAttribute('value');
 
-  nameInput.getAttribute('value');
-  jobInput.getAttribute('value');
+    header.textContent = nameInput.value;
+    job.textContent = jobInput.value;
+  } else {
+    placeInput.getAttribute('value');
+    linkInput.getAttribute('.value');
 
-  header.textContent = nameInput.value;
-  job.textContent = jobInput.value;
+    addCard(placeInput.value, placeInput.value, linkInput.value);
+    
+    placeInput.value = '';
+    linkInput.value = '';
+  }
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
-formElement.addEventListener('submit', togglePopup);
+formElements.forEach(function (form) {
+  form.addEventListener('submit', evt => formSubmitHandler(evt, form));
+  form.addEventListener('submit', () => togglePopup('.' + form.parentElement.classList[1]));
+})

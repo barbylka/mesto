@@ -34,13 +34,25 @@
       </ul>
     </section>
 
-    <section class="popup">
+    <section class="popup popup_type_edit">
       <form class="popup__container" name="editProfile">
         <button class="popup__exit-button" type="button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <fieldset class="popup__inputs">
           <input type="text" required placeholder="Имя" value="" class="popup__text popup__text_type_name" name="userName">
           <input type="text" required placeholder="О себе" value="" class="popup__text popup__text_type_description" name="userJob">
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
+    </section>
+
+    <section class="popup popup_type_add">
+      <form class="popup__container" name="addPlace">
+        <button class="popup__exit-button" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <fieldset class="popup__inputs">
+          <input type="text" required placeholder="Название" value="" class="popup__text popup__text_type_place" name="placeName">
+          <input type="url" required placeholder="Ссылка на картинку" value="" class="popup__text popup__text_type_link" name="placeLink">
           <button class="popup__save-button" type="submit">Сохранить</button>
         </fieldset>
       </form>
@@ -56,9 +68,7 @@
       <button class="places__delete" type="button"></button>
       <img class="places__img" alt="" src="">
       <div class="places__description">
-        <h2 class="places__title">
-          
-        </h2>
+        <h2 class="places__title"></h2>
         <button class="places__like" type="button"></button>
       </div>
     </li>
