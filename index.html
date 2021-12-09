@@ -23,68 +23,69 @@
           <h1 class="profile__cont-info-name">Жак-Ив Кусто</h1>
           <p class="profile__cont-info-description">Исследователь океана</p>
         </div>
-        <button class="profile__cont-edit-button profile__button"></button>
+        <button class="profile__button profile__button_type_edit" type="button"></button>
       </div>
-      <button class="profile__add-button profile__button"></button>
-    </section>
-
-    <section class="popup">
-      <form class="popup__container">
-        <button class="popup__exit-button" type="button"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <fieldset class="popup__inputs">
-          <input type="text" required placeholder="Имя" value="" class="popup__text popup__text_type_name">
-          <input type="text" required placeholder="О себе" value="" class="popup__text popup__text_type_description">
-          <button class="popup__save-button" type="submit">Сохранить</button>
-        </fieldset>
-      </form>
+      <button class="profile__button profile__button_type_add" type="button"></button>
     </section>
 
     <section class="places">
       <ul class="places__items">
         <li class="places__item">
-          <img class="places__img" alt="Карачаевск" src="./images/karachaevsk.png">
+          <img class="places__img" alt="Панорама Карачаевска." src="./images/karachaevsk.jpg">
           <div class="places__description">
             <h2 class="places__title">Карачаево-Черкессия</h2>
-            <img class="places__like" src="./images/like.svg" alt="лайк">
+            <button class="places__like" type="button"></button>
           </div>
         </li>
         <li class="places__item">
-          <img class="places__img" alt="Гора Эльбрус" src="./images/elbrus.png">
+          <img class="places__img" alt="Гора Эльбрус." src="./images/elbrus.jpg">
           <div class="places__description">
             <h2 class="places__title">Гора Эльбрус</h2>
-            <img class="places__like" src="./images/like.svg" alt="лайк">
+            <button class="places__like" type="button"></button>
           </div>
         </li>
         <li class="places__item">
-          <img class="places__img" alt="Домбай" src="./images/dombai.png">
+          <img class="places__img" alt="Панорама леса и гор Домбай." src="./images/dombai.jpg">
           <div class="places__description">
             <h2 class="places__title">Домбай</h2>
-            <img class="places__like" src="./images/like.svg" alt="лайк">
+            <button class="places__like" type="button"></button>
           </div>
         </li>
         <li class="places__item">
-          <img class="places__img" alt="горы" src="./images/adirondack-mountains.jpg">
+          <img class="places__img" alt="Панорама гор Адирондак с высоты птичьего полета."
+            src="./images/adirondack-mountains.jpg">
           <div class="places__description">
             <h2 class="places__title">Горы Адирондак</h2>
-            <img class="places__like" src="./images/like.svg" alt="лайк">
+            <button class="places__like" type="button"></button>
           </div>
         </li>
         <li class="places__item">
-          <img class="places__img" alt="Лагоа-ду-Фогу" src="./images/logoa-do-fogo.jpg">
+          <img class="places__img" alt="Закат на Лагоа-ду-Фогу." src="./images/logoa-do-fogo.jpg">
           <div class="places__description">
             <h2 class="places__title">Лагоа-ду-Фогу</h2>
-            <img class="places__like" src="./images/like.svg" alt="лайк">
+            <button class="places__like" type="button"></button>
           </div>
         </li>
         <li class="places__item">
-          <img class="places__img" alt="Йосемити" src="./images/yosemite.jpg">
+          <img class="places__img" alt="Горная панорама в Йосемити." src="./images/yosemite.jpg">
           <div class="places__description">
             <h2 class="places__title">Йосемити Национальный парк</h2>
-            <img class="places__like" src="./images/like.svg" alt="лайк">
+            <button class="places__like" type="button"></button>
           </div>
         </li>
       </ul>
+    </section>
+
+    <section class="popup">
+      <form class="popup__container" name="editProfile">
+        <button class="popup__exit-button" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <fieldset class="popup__inputs">
+          <input type="text" required placeholder="Имя" value="" class="popup__text popup__text_type_name" name="userName">
+          <input type="text" required placeholder="О себе" value="" class="popup__text popup__text_type_description" name="userJob">
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
     </section>
   </main>
 
