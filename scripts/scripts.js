@@ -67,13 +67,13 @@ initialPlaces.forEach(element => addCard(element.name, element.alt, element.link
 
 /* open all popups */
 
-let editBtn = document.querySelector('.profile__button_type_edit');
-let addBtn = document.querySelector('.profile__button_type_add');
-let body = document.querySelector('.root');
-let header = document.querySelector('.profile__cont-info-name');
-let job = document.querySelector('.profile__cont-info-description');
-let nameInput = document.querySelector('.popup__text_type_name');
-let jobInput = document.querySelector('.popup__text_type_description');
+const editBtn = document.querySelector('.profile__button_type_edit');
+const addBtn = document.querySelector('.profile__button_type_add');
+const body = document.querySelector('.root');
+const header = document.querySelector('.profile__cont-info-name');
+const job = document.querySelector('.profile__cont-info-description');
+const nameInput = document.querySelector('.popup__text_type_name');
+const jobInput = document.querySelector('.popup__text_type_description');
 
 function togglePopup(popupClass) {
   const popup = document.querySelector(popupClass);
@@ -91,7 +91,7 @@ addBtn.addEventListener('click', () => togglePopup('.popup_type_add'));
 
 /* exit buttons */
 
-let exitBtns = document.querySelectorAll('.popup__exit-button');
+const exitBtns = document.querySelectorAll('.popup__exit-button');
 
 exitBtns.forEach(btn => {
   btn.addEventListener('click', () => togglePopup('.' + btn.parentElement.parentElement.classList[1]));
@@ -99,7 +99,7 @@ exitBtns.forEach(btn => {
 
 /* both forms submit */
 
-let formElements = document.querySelectorAll('.popup__container');
+const formElements = document.querySelectorAll('.popup__container');
 const placeInput = document.querySelector('.popup__text_type_place');
 const linkInput = document.querySelector('.popup__text_type_link');
 
