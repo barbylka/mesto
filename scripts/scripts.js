@@ -1,30 +1,83 @@
-function touchLike() {
-  let allLikes = document.querySelectorAll('.places__like');
-  for (let i = 0; i < allLikes.length; i++) {
-    const likeIcon = allLikes[i];
-    likeIcon.addEventListener('click', function () {
-      if (likeIcon.classList.contains('places__like_active')) {
-        likeIcon.classList.remove('places__like_active');
-      } else {
-        likeIcon.classList.add('places__like_active');
-      }
-    })
+/* add cards + call pic-popup */
+
+const placesList = document.querySelector('.places__items');
+const placesTemplate = document.querySelector('.places-template').content;
+const placesDesc = document.querySelector('.places__description');
+
+const initialPlaces = [
+  {
+    name: 'Карачаево-Черкессия',
+    alt: 'Панорама Карачаевска.',
+    link: './images/karachaevo-cherk.jpg'
+  },
+  {
+    name: 'Гора Эльбрус',
+    alt: 'Гора Эльбрус.',
+    link: './images/elbrus.jpg'
+  },
+  {
+    name: 'Горный Алтай',
+    alt: 'Панорама леса и гор Алтая.',
+    link: './images/altai.jpg'
+  },
+  {
+    name: 'Горы Адирондак',
+    alt: 'Панорама гор Адирондак с высоты птичьего полета.',
+    link: './images/adirondack-mountains.jpg'
+  },
+  {
+    name: 'Лагоа-ду-Фогу',
+    alt: 'Закат на Лагоа-ду-Фогу.',
+    link: './images/logoa-do-fogo.jpg'
+  },
+  {
+    name: 'Йосемити Национальный парк',
+    alt: 'Горная панорама в Йосемити.',
+    link: './images/yosemite.jpg'
   }
+];
+
+function addCard(name, alt, link) {
+  const placesElement = placesTemplate.cloneNode(true);
+
+  placesElement.querySelector('.places__title').textContent = name;
+  placesElement.querySelector('.places__img').alt = alt;
+  placesElement.querySelector('.places__img').src = link;
+  
+  placesElement.querySelector('.places__like').addEventListener('click', evt => {
+    evt.target.classList.toggle('places__like_active');
+  });
+
+  placesElement.querySelector('.places__delete').addEventListener('click', evt => {
+    evt.target.closest('.places__item').remove();
+  })
+
+  placesElement.querySelector('.places__img').addEventListener('click', function () {
+    document.querySelector('.popup__pic-title').textContent = name;
+    document.querySelector('.popup__img').alt = alt;
+    document.querySelector('.popup__img').src = link;
+
+    togglePopup('.popup_type_pic');
+  })
+
+  placesList.prepend(placesElement);
 }
 
-touchLike();
+initialPlaces.forEach(element => addCard(element.name, element.alt, element.link))
 
-let editBtn = document.querySelector('.profile__button_type_edit');
-let popup = document.querySelector('.popup');
-let body = document.querySelector('.root');
-let header = document.querySelector('.profile__cont-info-name');
-let job = document.querySelector('.profile__cont-info-description');
-let nameInput = document.querySelector('.popup__text_type_name');
-let jobInput = document.querySelector('.popup__text_type_description');
-let exitBtn = document.querySelector('.popup__exit-button');
+/* open all popups */
 
-function togglePopup() {
-  if (!popup.classList.contains('popup_opened')) {
+const editBtn = document.querySelector('.profile__button_type_edit');
+const addBtn = document.querySelector('.profile__button_type_add');
+const body = document.querySelector('.root');
+const header = document.querySelector('.profile__cont-info-name');
+const job = document.querySelector('.profile__cont-info-description');
+const nameInput = document.querySelector('.popup__text_type_name');
+const jobInput = document.querySelector('.popup__text_type_description');
+
+function togglePopup(popupClass) {
+  const popup = document.querySelector(popupClass);
+  if (popupClass === '.popup_type_edit' && !popup.classList.contains('popup_opened')) {
     nameInput.value = header.textContent;
     jobInput.value = job.textContent;
   }
@@ -33,20 +86,44 @@ function togglePopup() {
   body.classList.toggle('root_hidden');
 }
 
-editBtn.addEventListener('click', togglePopup);
-exitBtn.addEventListener('click', togglePopup);
+editBtn.addEventListener('click', () => togglePopup('.popup_type_edit'));
+addBtn.addEventListener('click', () => togglePopup('.popup_type_add'));
 
-let formElement = document.querySelector('.popup__container');
+/* exit buttons */
 
-function formSubmitHandler(evt) {
+const exitBtns = document.querySelectorAll('.popup__exit-button');
+
+exitBtns.forEach(btn => {
+  btn.addEventListener('click', () => togglePopup('.' + btn.parentElement.parentElement.classList[1]));
+});
+
+/* both forms submit */
+
+const formElements = document.querySelectorAll('.popup__container');
+const placeInput = document.querySelector('.popup__text_type_place');
+const linkInput = document.querySelector('.popup__text_type_link');
+
+function formSubmitHandler(evt, form) {
   evt.preventDefault();
+  const popup = form.parentElement;
+  if (popup.classList.contains('popup_type_edit')) {
+    nameInput.getAttribute('value');
+    jobInput.getAttribute('value');
 
-  nameInput.getAttribute('value');
-  jobInput.getAttribute('value');
+    header.textContent = nameInput.value;
+    job.textContent = jobInput.value;
+  } else {
+    placeInput.getAttribute('value');
+    linkInput.getAttribute('.value');
 
-  header.textContent = nameInput.value;
-  job.textContent = jobInput.value;
+    addCard(placeInput.value, placeInput.value, linkInput.value);
+    
+    placeInput.value = '';
+    linkInput.value = '';
+  }
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
-formElement.addEventListener('submit', togglePopup);
+formElements.forEach(function (form) {
+  form.addEventListener('submit', evt => formSubmitHandler(evt, form));
+  form.addEventListener('submit', () => togglePopup('.' + form.parentElement.classList[1]));
+})
