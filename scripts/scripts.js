@@ -1,3 +1,5 @@
+/* add cards + call pic-popup */
+
 const placesList = document.querySelector('.places__items');
 const placesTemplate = document.querySelector('.places-template').content;
 const placesDesc = document.querySelector('.places__description');
@@ -6,7 +8,7 @@ const initialPlaces = [
   {
     name: 'Карачаево-Черкессия',
     alt: 'Панорама Карачаевска.',
-    link: './images/karachaevsk.jpg'
+    link: './images/karachaevo-cherk.jpg'
   },
   {
     name: 'Гора Эльбрус',
@@ -14,9 +16,9 @@ const initialPlaces = [
     link: './images/elbrus.jpg'
   },
   {
-    name: 'Домбай',
-    alt: 'Панорама леса и гор Домбай.',
-    link: './images/dombai.jpg'
+    name: 'Горный Алтай',
+    alt: 'Панорама леса и гор Алтая.',
+    link: './images/altai.jpg'
   },
   {
     name: 'Горы Адирондак',
@@ -41,7 +43,7 @@ function addCard(name, alt, link) {
   placesElement.querySelector('.places__title').textContent = name;
   placesElement.querySelector('.places__img').alt = alt;
   placesElement.querySelector('.places__img').src = link;
-
+  
   placesElement.querySelector('.places__like').addEventListener('click', evt => {
     evt.target.classList.toggle('places__like_active');
   });
@@ -50,12 +52,20 @@ function addCard(name, alt, link) {
     evt.target.closest('.places__item').remove();
   })
 
+  placesElement.querySelector('.places__img').addEventListener('click', function () {
+    document.querySelector('.popup__pic-title').textContent = name;
+    document.querySelector('.popup__img').alt = alt;
+    document.querySelector('.popup__img').src = link;
+
+    togglePopup('.popup_type_pic');
+  })
+
   placesList.prepend(placesElement);
 }
 
 initialPlaces.forEach(element => addCard(element.name, element.alt, element.link))
 
-/* profile edit popup */
+/* open all popups */
 
 let editBtn = document.querySelector('.profile__button_type_edit');
 let addBtn = document.querySelector('.profile__button_type_add');
@@ -64,7 +74,6 @@ let header = document.querySelector('.profile__cont-info-name');
 let job = document.querySelector('.profile__cont-info-description');
 let nameInput = document.querySelector('.popup__text_type_name');
 let jobInput = document.querySelector('.popup__text_type_description');
-let exitBtns = document.querySelectorAll('.popup__exit-button');
 
 function togglePopup(popupClass) {
   const popup = document.querySelector(popupClass);
@@ -80,9 +89,15 @@ function togglePopup(popupClass) {
 editBtn.addEventListener('click', () => togglePopup('.popup_type_edit'));
 addBtn.addEventListener('click', () => togglePopup('.popup_type_add'));
 
+/* exit buttons */
+
+let exitBtns = document.querySelectorAll('.popup__exit-button');
+
 exitBtns.forEach(btn => {
   btn.addEventListener('click', () => togglePopup('.' + btn.parentElement.parentElement.classList[1]));
 });
+
+/* both forms submit */
 
 let formElements = document.querySelectorAll('.popup__container');
 const placeInput = document.querySelector('.popup__text_type_place');
