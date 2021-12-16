@@ -123,7 +123,7 @@ function closePopup(popUp) {
 }
 
 exitBtns.forEach(btn => {
-  btn.addEventListener('click', () => closePopup(btn.parentElement.parentElement));
+  btn.addEventListener('click', () => closePopup(btn.closest('.popup')));
 });
 
 /* both forms submit */
