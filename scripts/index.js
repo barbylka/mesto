@@ -55,6 +55,34 @@ const editForm = document.querySelector('.popup__container_type_edit');
 const addForm = document.querySelector('.popup__container_type_add');
 const exitBtns = document.querySelectorAll('.popup__exit-button');
 
+/* close popups */
+
+function closePopup(popUp) {
+  popUp.classList.remove('popup_opened');
+  body.classList.remove('root_hidden');
+}
+
+exitBtns.forEach(btn => {
+  btn.addEventListener('click', () => closePopup(btn.closest('.popup')));
+});
+
+const popups = document.querySelectorAll('.popup');
+
+popups.forEach(popup => {
+  document.addEventListener('keydown', function (evt) {
+    const key = evt.key;
+    if (key === 'Escape') {
+    closePopup(popup);
+    }
+  })
+})
+
+const popupOverlays = document.querySelectorAll('.popup__overlay');
+
+popupOverlays.forEach(overlay => {
+  overlay.addEventListener('click', () => closePopup(overlay.closest('.popup')));
+})
+
 /* create & add card func */
 
 function createCard(name, alt, link) {
@@ -115,16 +143,7 @@ addBtn.addEventListener('click', () => {
   initialAddInputs();
 });
 
-/* exit buttons */
 
-function closePopup(popUp) {
-  popUp.classList.remove('popup_opened');
-  body.classList.remove('root_hidden');
-}
-
-exitBtns.forEach(btn => {
-  btn.addEventListener('click', () => closePopup(btn.closest('.popup')));
-});
 
 /* both forms submit */
 
