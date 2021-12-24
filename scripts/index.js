@@ -1,41 +1,9 @@
 /* add cards + call pic-popup */
+import {initialPlaces} from './places.js';
 
 const placesList = document.querySelector('.places__items');
 const placesTemplate = document.querySelector('.places-template').content;
 const placesDesc = document.querySelector('.places__description');
-
-const initialPlaces = [
-  {
-    name: 'Карачаево-Черкессия',
-    alt: 'Панорама Карачаевска.',
-    link: './images/karachaevo-cherk.jpg'
-  },
-  {
-    name: 'Гора Эльбрус',
-    alt: 'Гора Эльбрус.',
-    link: './images/elbrus.jpg'
-  },
-  {
-    name: 'Горный Алтай',
-    alt: 'Панорама леса и гор Алтая.',
-    link: './images/altai.jpg'
-  },
-  {
-    name: 'Горы Адирондак',
-    alt: 'Панорама гор Адирондак с высоты птичьего полета.',
-    link: './images/adirondack-mountains.jpg'
-  },
-  {
-    name: 'Лагоа-ду-Фогу',
-    alt: 'Закат на Лагоа-ду-Фогу.',
-    link: './images/logoa-do-fogo.jpg'
-  },
-  {
-    name: 'Йосемити Национальный парк',
-    alt: 'Горная панорама в Йосемити.',
-    link: './images/yosemite.jpg'
-  }
-];
 
 const editBtn = document.querySelector('.profile__button_type_edit');
 const addBtn = document.querySelector('.profile__button_type_add');
@@ -53,13 +21,14 @@ const placeInput = document.querySelector('.popup__text_type_place');
 const linkInput = document.querySelector('.popup__text_type_link');
 const editForm = document.querySelector('.popup__container_type_edit');
 const addForm = document.querySelector('.popup__container_type_add');
-const exitBtns = document.querySelectorAll('.popup__exit-button');
+const exitBtns = document.querySelectorAll('.popup__exit-button'); 
 
 /* close popups */
 
 function closePopup(popUp) {
   popUp.classList.remove('popup_opened');
   body.classList.remove('root_hidden');
+  document.removeEventListener('keydown', closeByEsc);
 }
 
 exitBtns.forEach(btn => {
@@ -67,30 +36,30 @@ exitBtns.forEach(btn => {
 });
 
 const popups = document.querySelectorAll('.popup');
+const ESC_CODE = 'Escape';
 
-popups.forEach(popup => {
-  document.addEventListener('keydown', function (evt) {
-    const key = evt.key;
-    if (key === 'Escape') {
-    closePopup(popup);
-    }
-  })
-})
+function closeByEsc(evt) {
+  if (evt.key === ESC_CODE) {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
 
 const popupOverlays = document.querySelectorAll('.popup__overlay');
 
 popupOverlays.forEach(overlay => {
-  overlay.addEventListener('click', () => closePopup(overlay.closest('.popup')));
+  overlay.addEventListener('mousedown', () => closePopup(overlay.closest('.popup')));
 })
 
 /* create & add card func */
 
 function createCard(name, alt, link) {
   const placesElement = placesTemplate.cloneNode(true);
+  const placesImg = placesElement.querySelector('.places__img');
 
   placesElement.querySelector('.places__title').textContent = name;
-  placesElement.querySelector('.places__img').alt = alt;
-  placesElement.querySelector('.places__img').src = link;
+  placesImg.alt = alt;
+  placesImg.src = link;
   
   placesElement.querySelector('.places__like').addEventListener('click', evt => {
     evt.target.classList.toggle('places__like_active');
@@ -100,7 +69,7 @@ function createCard(name, alt, link) {
     evt.target.closest('.places__item').remove();
   })
 
-  placesElement.querySelector('.places__img').addEventListener('click', function () {
+  placesImg.addEventListener('click', function () {
     popupPicTitle.textContent = name;
     popupImg.alt = alt;
     popupImg.src = link;
@@ -121,6 +90,7 @@ initialPlaces.forEach(element => addCardPrepend(createCard(element.name, element
 function openPopup(popUp) {
   popUp.classList.add('popup_opened');
   body.classList.add('root_hidden');
+  document.addEventListener('keydown', closeByEsc);
 }
 
 function initialEditInputs() {
@@ -143,8 +113,6 @@ addBtn.addEventListener('click', () => {
   initialAddInputs();
 });
 
-
-
 /* both forms submit */
 
 function submitEditProfileForm(evt) {
@@ -155,6 +123,7 @@ function submitEditProfileForm(evt) {
 
   header.textContent = nameInput.value;
   job.textContent = jobInput.value;
+  
   closePopup(popupEdit);
 }
 
@@ -171,6 +140,7 @@ function submitCreateCardForm(evt) {
   placeInput.value = '';
   linkInput.value = '';
   closePopup(popupAdd);
+  popupAdd.querySelector('.popup__save-button').setAttribute('disabled', true);
 }
 
 addForm.addEventListener('submit', submitCreateCardForm);
