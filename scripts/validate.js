@@ -31,8 +31,10 @@ function hasInvalidInput (inputList) {
 function toggleButtonState (inputList, buttonItem, inactiveButtonClass) {
   if(hasInvalidInput(inputList)) {
     buttonItem.classList.add(inactiveButtonClass);
+    buttonItem.setAttribute('disabled', true);
   } else {
     buttonItem.classList.remove(inactiveButtonClass);
+    buttonItem.removeAttribute('disabled');
   }
 }
 
@@ -45,7 +47,6 @@ const setEventListeners = (formItem, inputSelector, inputErrorClass, errorClass,
     inputItem.addEventListener('input', function () {
       checkInputValidity(formItem, inputItem, inputErrorClass, errorClass);
       toggleButtonState(inputList, saveButton, inactiveButtonClass);
-      
     });
   });
 };
