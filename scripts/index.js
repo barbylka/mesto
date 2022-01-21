@@ -1,10 +1,11 @@
-/* add cards + call pic-popup */
-import {initialPlaces} from './places.js';
+import { initialPlaces } from './places.js';
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
 
+const popupPic = document.querySelector('.popup_type_pic');
 const placesList = document.querySelector('.places__items');
-const placesTemplate = document.querySelector('.places-template').content;
-const placesDesc = document.querySelector('.places__description');
-
+const popupPicTitle = document.querySelector('.popup__pic-title');
+const popupImg = document.querySelector('.popup__img');
 const editBtn = document.querySelector('.profile__button_type_edit');
 const addBtn = document.querySelector('.profile__button_type_add');
 const body = document.querySelector('.root');
@@ -14,9 +15,6 @@ const nameInput = document.querySelector('.popup__text_type_name');
 const jobInput = document.querySelector('.popup__text_type_description');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
-const popupPic = document.querySelector('.popup_type_pic');
-const popupPicTitle = document.querySelector('.popup__pic-title');
-const popupImg = document.querySelector('.popup__img');
 const placeInput = document.querySelector('.popup__text_type_place');
 const linkInput = document.querySelector('.popup__text_type_link');
 const editForm = document.querySelector('.popup__container_type_edit');
@@ -35,7 +33,6 @@ exitBtns.forEach(btn => {
   btn.addEventListener('click', () => closePopup(btn.closest('.popup')));
 });
 
-const popups = document.querySelectorAll('.popup');
 const ESC_CODE = 'Escape';
 
 function closeByEsc(evt) {
@@ -50,40 +47,6 @@ const popupOverlays = document.querySelectorAll('.popup__overlay');
 popupOverlays.forEach(overlay => {
   overlay.addEventListener('mousedown', () => closePopup(overlay.closest('.popup')));
 })
-
-/* create & add card func */
-
-function createCard(name, alt, link) {
-  const placesElement = placesTemplate.cloneNode(true);
-  const placesImg = placesElement.querySelector('.places__img');
-
-  placesElement.querySelector('.places__title').textContent = name;
-  placesImg.alt = alt;
-  placesImg.src = link;
-  
-  placesElement.querySelector('.places__like').addEventListener('click', evt => {
-    evt.target.classList.toggle('places__like_active');
-  });
-
-  placesElement.querySelector('.places__delete').addEventListener('click', evt => {
-    evt.target.closest('.places__item').remove();
-  })
-
-  placesImg.addEventListener('click', function () {
-    popupPicTitle.textContent = name;
-    popupImg.alt = alt;
-    popupImg.src = link;
-
-    openPopup(popupPic);
-  })
-  return placesElement;
-}
-
-function addCardPrepend(item) {
-  placesList.prepend(item);
-};
-
-initialPlaces.forEach(element => addCardPrepend(createCard(element.name, element.alt, element.link)));
 
 /* open all popups */
 
@@ -113,6 +76,47 @@ addBtn.addEventListener('click', () => {
   initialAddInputs();
 });
 
+/* add cards + call pic-popup */
+
+function addCardPrepend(item) {
+  placesList.prepend(item);
+};
+
+function createCard(name, alt, link, cardSelector) {
+  const card = new Card(name, alt, link, cardSelector);
+  const cardElement = card.generateCard();
+
+  const placesImg = cardElement.querySelector('.places__img');
+  placesImg.addEventListener('click', function () {
+    popupPicTitle.textContent = name;
+    popupImg.alt = alt;
+    popupImg.src = link;
+
+    openPopup(popupPic);
+  })
+
+  return cardElement;
+}
+
+initialPlaces.forEach(element => addCardPrepend(createCard(element.name, element.alt, element.link, '.places-template_type_default')));
+
+/* swith on forms validation */
+
+const dataValidator = {
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__text_type_error',
+  errorClass: 'popup__text-error_active'
+}
+
+const forms = document.querySelectorAll('.popup__container');
+
+forms.forEach((item) => {
+  const formValid = new FormValidator(dataValidator, item );
+  formValid.enableValidation();
+});
+
 /* both forms submit */
 
 function submitEditProfileForm(evt) {
@@ -135,7 +139,7 @@ function submitCreateCardForm(evt) {
   placeInput.getAttribute('value');
   linkInput.getAttribute('.value');
 
-  addCardPrepend(createCard(placeInput.value, placeInput.value, linkInput.value));
+  addCardPrepend(createCard(placeInput.value, placeInput.value, linkInput.value, '.places-template_type_default'));
   
   placeInput.value = '';
   linkInput.value = '';
