@@ -19,7 +19,23 @@ const placeInput = document.querySelector('.popup__text_type_place');
 const linkInput = document.querySelector('.popup__text_type_link');
 const editForm = document.querySelector('.popup__container_type_edit');
 const addForm = document.querySelector('.popup__container_type_add');
-const exitBtns = document.querySelectorAll('.popup__exit-button'); 
+const exitBtns = document.querySelectorAll('.popup__exit-button');
+
+/* swith on the forms validation */
+
+const dataValidator = {
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__save-button',
+  inactiveButtonClass: 'popup__save-button_disabled',
+  inputErrorClass: 'popup__text_type_error',
+  errorClass: 'popup__text-error_active'
+}
+
+const editFormValid = new FormValidator(dataValidator, editForm);
+editFormValid.enableValidation();
+
+const addFormValid = new FormValidator(dataValidator, addForm);
+addFormValid.enableValidation();
 
 /* close popups */
 
@@ -69,11 +85,13 @@ function initialAddInputs() {
 editBtn.addEventListener('click', () => {
   openPopup(popupEdit);
   initialEditInputs();
+  editFormValid.toggleButtonState();
 });
 
 addBtn.addEventListener('click', () => {
   openPopup(popupAdd);
   initialAddInputs();
+  addFormValid.toggleButtonState();
 });
 
 /* add cards + call pic-popup */
@@ -82,49 +100,30 @@ function addCardPrepend(item) {
   placesList.prepend(item);
 };
 
+export function openCard(name, alt, link) {
+  popupPicTitle.textContent = name;
+  popupImg.alt = alt;
+  popupImg.src = link;
+
+  openPopup(popupPic);
+}
+
 function createCard(name, alt, link, cardSelector) {
   const card = new Card(name, alt, link, cardSelector);
   const cardElement = card.generateCard();
-
-  const placesImg = cardElement.querySelector('.places__img');
-  placesImg.addEventListener('click', function () {
-    popupPicTitle.textContent = name;
-    popupImg.alt = alt;
-    popupImg.src = link;
-
-    openPopup(popupPic);
-  })
 
   return cardElement;
 }
 
 initialPlaces.forEach(element => addCardPrepend(createCard(element.name, element.alt, element.link, '.places-template_type_default')));
 
-/* swith on forms validation */
 
-const dataValidator = {
-  inputSelector: '.popup__text',
-  submitButtonSelector: '.popup__save-button',
-  inactiveButtonClass: 'popup__save-button_disabled',
-  inputErrorClass: 'popup__text_type_error',
-  errorClass: 'popup__text-error_active'
-}
-
-const forms = document.querySelectorAll('.popup__container');
-
-forms.forEach((item) => {
-  const formValid = new FormValidator(dataValidator, item );
-  formValid.enableValidation();
-});
 
 /* both forms submit */
 
 function submitEditProfileForm(evt) {
   evt.preventDefault();
   
-  nameInput.getAttribute('value');
-  jobInput.getAttribute('value');
-
   header.textContent = nameInput.value;
   job.textContent = jobInput.value;
   
@@ -136,15 +135,11 @@ editForm.addEventListener('submit', submitEditProfileForm);
 function submitCreateCardForm(evt) {
   evt.preventDefault();
   
-  placeInput.getAttribute('value');
-  linkInput.getAttribute('.value');
-
   addCardPrepend(createCard(placeInput.value, placeInput.value, linkInput.value, '.places-template_type_default'));
   
-  placeInput.value = '';
-  linkInput.value = '';
+  addForm.reset();
   closePopup(popupAdd);
-  popupAdd.querySelector('.popup__save-button').setAttribute('disabled', true);
+  addFormValid.toggleButtonState();
 }
 
 addForm.addEventListener('submit', submitCreateCardForm);

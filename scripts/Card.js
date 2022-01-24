@@ -1,3 +1,5 @@
+import { openCard } from "./index.js";
+
 export class Card {
   constructor(name, alt, link, cardSelector) {
     this._name = name;
@@ -34,6 +36,10 @@ export class Card {
     this._element.querySelector('.places__delete').addEventListener('click', () => {
       this._removeCard();
     });
+
+    this._element.querySelector('.places__img').addEventListener('click', () => {
+      openCard(this._name, this._alt, this._link);
+    })
   }
 
   _toggleLike() {
