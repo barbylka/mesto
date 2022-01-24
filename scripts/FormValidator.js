@@ -8,10 +8,12 @@ export class FormValidator {
     this._inputErrorClass = data.inputErrorClass;
     this._errorClass = data.errorClass;
     this._element = formElement;
+    this._inputList = Array.from(this._element.querySelectorAll(this._inputSelector));
+    this._saveButton = this._element.querySelector(this._submitButtonSelector);
   }
 
   enableValidation() {
-   this._element.addEventListener('submit', (evt) => {
+    this._element.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
 
@@ -19,33 +21,31 @@ export class FormValidator {
   }  
 
   _setEventListeners() {
-    const inputList = Array.from(this._element.querySelectorAll(this._inputSelector));
-    const saveButton = this._element.querySelector(this._submitButtonSelector);
-
-    this._toggleButtonState(inputList, saveButton);
-    inputList.forEach(inputItem => {
+    this.toggleButtonState();
+    this._inputList.forEach(inputItem => {
       inputItem.addEventListener('input', () => {
         this._checkInputValidity(inputItem);
-        this._toggleButtonState(inputList, saveButton);
+        this.toggleButtonState();
       })
     })
   }
 
-  _hasInvalidInput(inputList) {
-    return inputList.some((input) => {
+  _hasInvalidInput() {
+    return this._inputList.some((input) => {
       return !input.validity.valid;
     })
   }
 
-  _toggleButtonState(inputList, buttonItem) {
-    if(this._hasInvalidInput(inputList)) {
-      buttonItem.classList.add(this._inactiveButtonClass);
-      buttonItem.setAttribute('disabled', true);
+  toggleButtonState() {
+    if(this._hasInvalidInput()) {
+      this._saveButton.setAttribute('disabled', true);
+      this._saveButton.classList.add(this._inactiveButtonClass);
+      
     } else {
-      buttonItem.classList.remove(this._inactiveButtonClass);
-      buttonItem.removeAttribute('disabled');
+      this._saveButton.classList.remove(this._inactiveButtonClass);
+      this._saveButton.removeAttribute('disabled');
     }
-  }  
+  }
 
   _checkInputValidity(inputItem) {
     if (!inputItem.validity.valid) {
