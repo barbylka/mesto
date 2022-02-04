@@ -1,10 +1,9 @@
-import { openCard } from "./index.js";
-
 export class Card {
-  constructor(name, alt, link, cardSelector) {
-    this._name = name;
-    this._alt = alt;
-    this._link = link;
+  constructor(data, handleCardClick, cardSelector) {
+    this._name = data.name;
+    this._alt = `Панорама ${data.name}`;
+    this._link = data.link;
+    this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
   }
 
@@ -38,7 +37,7 @@ export class Card {
     });
 
     this._element.querySelector('.places__img').addEventListener('click', () => {
-      openCard(this._name, this._alt, this._link);
+      this._handleCardClick();
     })
   }
 

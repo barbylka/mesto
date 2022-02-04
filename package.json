@@ -1,0 +1,20 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Наша планета буквально состоит из тысячи живописных территорий. Часть из них относится находится под пристальным вниманием и заботой государств или международных организаций, часть - нетронутые места природно-климатических зон. Тут можно просмотреть карточки с такими местами.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barbylka/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/barbylka/mesto/issues"
+  },
+  "homepage": "https://github.com/barbylka/mesto#readme"
+}
