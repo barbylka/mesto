@@ -1,3 +1,4 @@
+import './index.css';
 import { initialPlaces, dataValidator, editForm, addForm, popupPic, header, job, placesList, editBtn, addBtn, nameInput, jobInput, popupAdd, popupEdit } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';

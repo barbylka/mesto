@@ -1,27 +1,35 @@
+const karachaevo = new URL('../images/karachaevo-cherk.jpg', import.meta.url);
+const elbrus = new URL('../images/elbrus.jpg', import.meta.url);
+const altai = new URL('../images/altai.jpg', import.meta.url);
+const adirondack = new URL('../images/adirondack-mountains.jpg', import.meta.url);
+const logoadofogo = new URL('../images/logoa-do-fogo.jpg', import.meta.url);
+const yosemite = new URL('../images/yosemite.jpg', import.meta.url);
+
+
 const initialPlaces = [
   {
     name: 'Карачаево-Черкессия',
-    link: './images/karachaevo-cherk.jpg'
+    link: karachaevo
   },
   {
     name: 'Гора Эльбрус',
-    link: './images/elbrus.jpg'
+    link: elbrus
   },
   {
     name: 'Горный Алтай',
-    link: './images/altai.jpg'
+    link: altai
   },
   {
     name: 'Горы Адирондак',
-    link: './images/adirondack-mountains.jpg'
+    link: adirondack
   },
   {
     name: 'Лагоа-ду-Фогу',
-    link: './images/logoa-do-fogo.jpg'
+    link: logoadofogo
   },
   {
     name: 'Йосемити Национальный парк',
-    link: './images/yosemite.jpg'
+    link: yosemite
   },
 ];
 
