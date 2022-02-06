@@ -3,6 +3,7 @@ import { ESC_CODE } from '../utils/constants.js'
 export default class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   _handleEscClose(evt) {
@@ -30,6 +31,6 @@ export default class Popup {
   open() {
     this._popupSelector.classList.add('popup_opened');
     document.querySelector('.root').classList.add('root_hidden');
-    document.addEventListener('keydown', evt => this._handleEscClose(evt))
+    document.addEventListener('keydown', this._handleEscClose)
   }
 }
