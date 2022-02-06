@@ -53,5 +53,6 @@ const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const editForm = document.querySelector('.popup__container_type_edit');
 const addForm = document.querySelector('.popup__container_type_add');
+const ESC_CODE = 'Escape';
 
-export { initialPlaces, dataValidator, popupPic, placesList, editBtn, addBtn, header, job, nameInput, jobInput, popupEdit, popupAdd, editForm, addForm }
+export { initialPlaces, dataValidator, popupPic, placesList, editBtn, addBtn, header, job, nameInput, jobInput, popupEdit, popupAdd, editForm, addForm, ESC_CODE }

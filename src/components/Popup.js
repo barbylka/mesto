@@ -1,11 +1,11 @@
+import { ESC_CODE } from '../utils/constants.js'
+
 export default class Popup {
   constructor(popupSelector) {
     this._popupSelector = popupSelector;
   }
 
   _handleEscClose(evt) {
-    const ESC_CODE = 'Escape';
-
     if (evt.key === ESC_CODE) {
       this.close();
     }
@@ -22,16 +22,14 @@ export default class Popup {
       this.close();
     })
 
-    this._popupSelector.querySelector('.popup__overlay').addEventListener('click', () => {
+    this._popupSelector.querySelector('.popup__overlay').addEventListener('mousedown', () => {
       this.close();
     })
-
-    document.addEventListener('keydown', evt => this._handleEscClose(evt))
   }
 
   open() {
     this._popupSelector.classList.add('popup_opened');
     document.querySelector('.root').classList.add('root_hidden');
-    this.setEventListeners();
+    document.addEventListener('keydown', evt => this._handleEscClose(evt))
   }
 }
