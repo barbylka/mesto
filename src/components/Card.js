@@ -21,8 +21,9 @@ export class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._element.querySelector('.places__title').textContent = this._name;
-    this._element.querySelector('.places__img').alt = this._alt;
-    this._element.querySelector('.places__img').src = this._link;
+    const cardImg = this._element.querySelector('.places__img');
+    cardImg.alt = this._alt;
+    cardImg.src = this._link;
 
     return this._element;
   }
@@ -46,6 +47,7 @@ export class Card {
   }
 
   _removeCard() {
-    this._element.querySelector('.places__delete').closest('.places__item').remove();
+    this._element.remove();
+    this._element = null;
   }
 }
