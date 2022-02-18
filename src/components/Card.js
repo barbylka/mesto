@@ -1,10 +1,11 @@
 export class Card {
-  constructor(data, handleCardClick, cardSelector) {
+  constructor(data, handleCardClick, cardSelector, removeCard) {
     this._name = data.name;
     this._alt = `Панорама ${data.name}`;
     this._link = data.link;
     this._handleCardClick = handleCardClick;
     this._cardSelector = cardSelector;
+    this._removeCard = removeCard;
   }
 
   _getTemplate() {
@@ -44,10 +45,5 @@ export class Card {
 
   _toggleLike() {
     this._element.querySelector('.places__like').classList.toggle('places__like_active');
-  }
-
-  _removeCard() {
-    this._element.remove();
-    this._element = null;
   }
 }
