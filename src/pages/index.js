@@ -1,11 +1,12 @@
 import './index.css';
-import { initialPlaces, dataValidator, editForm, addForm, popupPic, header, job, placesList, editBtn, addBtn, nameInput, jobInput, popupAdd, popupEdit } from '../utils/constants.js';
+import { initialPlaces, popupDel, dataValidator, editForm, addForm, popupPic, header, job, placesList, editBtn, addBtn, nameInput, jobInput, popupAdd, popupEdit } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
+import PopupWithConfirm from '../components/PopupWithConfirm';
 
 /* swith on the forms validation */
 
@@ -20,12 +21,19 @@ addFormValid.enableValidation();
 const imgPopup = new PopupWithImage(popupPic);
 imgPopup.setEventListeners();
 
+const delPopup = new PopupWithConfirm(popupDel);
 function createCard(el) {
   const card = new Card(el, 
     () => {
       imgPopup.open(el);
     },
-    '.places-template_type_default')
+    '.places-template_type_default',
+    () => {
+      delPopup.setEventListeners(card._element);
+      delPopup.open();
+      
+    }
+  )
   return card;
 }
 
@@ -41,8 +49,6 @@ cardsList.renderItems();
 /* edit form submit */
 
 const user = new UserInfo(header, job);
-
-/* formEdit reset in PopupWithForm.js line #23 */
 
 editBtn.addEventListener('click', () => {
   user.getUserInfo();
@@ -71,7 +77,6 @@ const formAdd = new PopupWithForm({
 })
 formAdd.setEventListeners();
 
-/* formAdd reset in PopupWithForm.js line #23 */
 addBtn.addEventListener('click', () => {
   formAdd.open();
   addFormValid.toggleButtonState();
