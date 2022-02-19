@@ -1,5 +1,5 @@
 import './index.css';
-import { initialPlaces, popupDel, dataValidator, editForm, addForm, popupPic, header, job, placesList, editBtn, addBtn, nameInput, jobInput, popupAdd, popupEdit } from '../utils/constants.js';
+import { initialPlaces, popupDel, dataValidator, avatar, popupAva, avaForm, editForm, addForm, popupPic, header, job, placesList, editBtn, addBtn, nameInput, jobInput, popupAdd, popupEdit } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -15,6 +15,9 @@ editFormValid.enableValidation();
 
 const addFormValid = new FormValidator(dataValidator, addForm);
 addFormValid.enableValidation();
+
+const avaFormValid = new FormValidator(dataValidator, avaForm);
+avaFormValid.enableValidation();
 
 /* add cards + call pic-popup */
 
@@ -81,3 +84,17 @@ addBtn.addEventListener('click', () => {
   formAdd.open();
   addFormValid.toggleButtonState();
 });
+
+/* avatar form submit */
+
+const formAvatar = new PopupWithForm({
+  popupSelector: popupAva,
+  handleFormSubmit: (formData) => {
+    avatar.style.backgroundImage = `url(${formData.avatar})`;
+  }
+})
+formAvatar.setEventListeners();
+avatar.addEventListener('click', () => {
+  formAvatar.open();
+  avaFormValid.toggleButtonState();
+})
