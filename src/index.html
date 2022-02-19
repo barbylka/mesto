@@ -93,6 +93,22 @@
       </form>
     </section>
 
+    <section class="popup popup_type_avatar">
+      <div class="popup__overlay"></div>
+      <form class="popup__container popup__container_type_avatar" name="editAvatar" novalidate>
+        <button class="popup__exit-button" type="button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <fieldset class="popup__inputs">
+          <label class="popup__field">
+            <input type="url" id="avatar-input" required placeholder="Ссылка на новый аватар" value="" class="popup__text popup__text_type_avatar"
+            name="avatar">
+            <span class="popup__text-error avatar-input-error"></span>
+          </label>
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </fieldset>
+      </form>
+    </section>
+
   </main>
 
   <footer class="footer">
@@ -105,7 +121,10 @@
       <img class="places__img" alt="фото, которое загрузил пользователь" src="<%=require('./images/like.svg')%>">
       <div class="places__description">
         <h2 class="places__title"></h2>
-        <button class="places__like" type="button"></button>
+        <div class="places__likes">
+          <button class="places__like" type="button"></button>
+          <span class="places__like-number">0</span>
+        </div>
       </div>
     </li>
   </template>
