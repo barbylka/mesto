@@ -1,38 +1,3 @@
-const karachaevo = new URL('../images/karachaevo-cherk.jpg', import.meta.url);
-const elbrus = new URL('../images/elbrus.jpg', import.meta.url);
-const altai = new URL('../images/altai.jpg', import.meta.url);
-const adirondack = new URL('../images/adirondack-mountains.jpg', import.meta.url);
-const logoadofogo = new URL('../images/logoa-do-fogo.jpg', import.meta.url);
-const yosemite = new URL('../images/yosemite.jpg', import.meta.url);
-
-
-const initialPlaces = [
-  {
-    name: 'Карачаево-Черкессия',
-    link: karachaevo
-  },
-  {
-    name: 'Гора Эльбрус',
-    link: elbrus
-  },
-  {
-    name: 'Горный Алтай',
-    link: altai
-  },
-  {
-    name: 'Горы Адирондак',
-    link: adirondack
-  },
-  {
-    name: 'Лагоа-ду-Фогу',
-    link: logoadofogo
-  },
-  {
-    name: 'Йосемити Национальный парк',
-    link: yosemite
-  },
-];
-
 const dataValidator = {
   inputSelector: '.popup__text',
   submitButtonSelector: '.popup__save-button',
@@ -59,4 +24,4 @@ const editForm = document.querySelector('.popup__container_type_edit');
 const addForm = document.querySelector('.popup__container_type_add');
 const ESC_CODE = 'Escape';
 
-export { initialPlaces, popupDel, avatar, popupAva, avaForm, dataValidator, popupPic, placesList, editBtn, addBtn, header, job, nameInput, jobInput, popupEdit, popupAdd, editForm, addForm, ESC_CODE }
+export { popupDel, avatar, popupAva, avaForm, dataValidator, popupPic, placesList, editBtn, addBtn, header, job, nameInput, jobInput, popupEdit, popupAdd, editForm, addForm, ESC_CODE }
