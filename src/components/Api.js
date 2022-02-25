@@ -4,6 +4,14 @@ export default class Api{
     this._headers = args.headers;
   }
 
+  _checkResponse(res) {
+    if(res.ok){
+      return res.json()
+    } else {
+      return Promise.reject(res.status)
+    }
+  }
+
   getUserInfo(){
     return fetch(this._baseUrl + '/users/me', 
       {
@@ -12,7 +20,7 @@ export default class Api{
           'Content-Type': this._headers.contentType
         }
       }
-    )
+    ).then(res => this._checkResponse(res));
   }
 
   getInitialCards() {
@@ -22,7 +30,7 @@ export default class Api{
         'Authorization': this._headers.authorization,
         'Content-Type': this._headers.contentType
       }
-    })
+    }).then(res => this._checkResponse(res));
   }
 
   updateUserInfo(data) {
@@ -34,11 +42,11 @@ export default class Api{
           'Content-Type': this._headers.contentType
         },
         body: JSON.stringify({
-          name: data.user,
-          about: data.job,
+          name: data.name,
+          about: data.about,
         })
       }
-    )
+    ).then(res => this._checkResponse(res));
   }
 
   updateAvatar(data) {
@@ -52,7 +60,7 @@ export default class Api{
       body: JSON.stringify({
         avatar: data.avatar,
       })
-    })
+    }).then(res => this._checkResponse(res));
   }
 
   postCard(data) {
@@ -68,7 +76,7 @@ export default class Api{
         link: data.link,
       })
     }
-    )
+    ).then(res => this._checkResponse(res));
   }
 
   deleteCard(cardId){
@@ -80,7 +88,7 @@ export default class Api{
         'Content-Type': this._headers.contentType
       }
     }
-    )
+    ).then(res => this._checkResponse(res));
   }
 
   likeCard(cardId){
@@ -92,7 +100,7 @@ export default class Api{
         'Content-Type': this._headers.contentType
       }
     }
-    )
+    ).then(res => this._checkResponse(res));
   }
 
   dislikeCard(cardId){
@@ -104,5 +112,6 @@ export default class Api{
         'Content-Type': this._headers.contentType
       }
     }
-  )}
+    ).then(res => this._checkResponse(res));
+  }
 }

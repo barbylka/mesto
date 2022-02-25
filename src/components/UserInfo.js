@@ -12,7 +12,7 @@ export default class UserInfo {
   }
 
   setUserInfo(formData) {
-    this._user.textContent = formData.user;
-    this._job.textContent = formData.job;
+    this._user.textContent = formData.name;
+    this._job.textContent = formData.about;
   }
 }
