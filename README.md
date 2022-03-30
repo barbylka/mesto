@@ -47,6 +47,8 @@ The ptoject model illustrates the screen resolutions view.
 
 7. The file structure is organized according to BEM methodology, which means flexibility in project modification. Each contextual block can be reused if additional information is needed, or deleted without affecting adjacent blocks.
 
+The project still is on progress.
+
 **GitHub Pages Link**
 
 The project is published [here](https://barbylka.github.io/mesto/)
